@@ -18,5 +18,6 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.8.0" />
     <PackageReference Include="Dock.Avalonia" Version="0.8.0" />
     <PackageReference Include="Dock.Model.ReactiveUI" Version="0.8.0" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.1" />
   </ItemGroup>
 </Project>
