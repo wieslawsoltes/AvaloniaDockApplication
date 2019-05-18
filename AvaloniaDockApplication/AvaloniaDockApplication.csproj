@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp2.1;net461</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.2</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="**\*.xaml.cs">
@@ -13,11 +13,10 @@
     <AvaloniaResource Include="Assets\*" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.8.0" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.8.0" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.8.0" />
-    <PackageReference Include="Dock.Avalonia" Version="0.8.0" />
-    <PackageReference Include="Dock.Model.ReactiveUI" Version="0.8.0" />
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.1" />
+    <PackageReference Include="Avalonia" Version="0.8.1-cibuild0002425-beta" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.8.1-cibuild0002425-beta" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.8.1-cibuild0002425-beta" />
+    <PackageReference Include="Dock.Avalonia" Version="0.8.1-build20190518-01" />
+    <PackageReference Include="Dock.Model.ReactiveUI" Version="0.8.1-build20190518-01" />
   </ItemGroup>
 </Project>
