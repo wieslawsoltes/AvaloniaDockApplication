@@ -16,8 +16,8 @@
     <PackageReference Include="Avalonia" Version="0.8.1-cibuild0002425-beta" />
     <PackageReference Include="Avalonia.Desktop" Version="0.8.1-cibuild0002425-beta" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.8.1-cibuild0002425-beta" />
-    <PackageReference Include="Dock.Avalonia" Version="0.8.1-build20190518-01" />
-    <PackageReference Include="Dock.Model.ReactiveUI" Version="0.8.1-build20190518-01" />
+    <PackageReference Include="Dock.Avalonia" Version="0.8.1-build20190806-03" />
+    <PackageReference Include="Dock.Model.ReactiveUI" Version="0.8.1-build20190806-03" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.1" />
   </ItemGroup>
 </Project>
