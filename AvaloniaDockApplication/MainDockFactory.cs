@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using Avalonia.Data;
 ﻿using AvaloniaDockApplication.Models.Documents;
 using AvaloniaDockApplication.Models.Tools;
 using AvaloniaDockApplication.ViewModels;
@@ -6,8 +9,6 @@ using AvaloniaDockApplication.ViewModels.Tools;
 using Dock.Avalonia.Controls;
 using Dock.Model;
 using Dock.Model.Controls;
-using System;
-using System.Collections.Generic;
 
 namespace AvaloniaDockApplication
 {
@@ -264,7 +265,20 @@ namespace AvaloniaDockApplication
 
             this.HostLocator = new Dictionary<string, Func<IDockHost>>
             {
-                [nameof(IDockWindow)] = () => new HostWindow()
+                [nameof(IDockWindow)] = () =>
+                {
+                    var hostWindow = new HostWindow()
+                    {
+                        [!HostWindow.TitleProperty] = new Binding("CurrentView.Title")
+                    };
+
+                    hostWindow.Content = new DockControl()
+                    {
+                        [!DockControl.LayoutProperty] = hostWindow[!HostWindow.DataContextProperty]
+                    };
+
+                    return hostWindow;
+                }
             };
 
             base.InitLayout(layout);
