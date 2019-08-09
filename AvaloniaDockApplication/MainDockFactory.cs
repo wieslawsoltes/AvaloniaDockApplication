@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Avalonia.Data;
-﻿using AvaloniaDockApplication.Models.Documents;
+using AvaloniaDockApplication.Models.Documents;
 using AvaloniaDockApplication.Models.Tools;
 using AvaloniaDockApplication.ViewModels;
 using AvaloniaDockApplication.ViewModels.Documents;
