@@ -17,6 +17,7 @@
     <PackageReference Include="Avalonia.Desktop" Version="0.8.1" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.8.1" />
     <PackageReference Include="Dock.Avalonia" Version="0.8.1" />
+    <PackageReference Include="Dock.Avalonia.Themes.Default" Version="0.8.1" />
     <PackageReference Include="Dock.Model.ReactiveUI" Version="0.8.1" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2" PrivateAssets="All" />
   </ItemGroup>
