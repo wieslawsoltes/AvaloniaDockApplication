@@ -27,7 +27,7 @@ namespace AvaloniaDockApplication
 
         public bool Match(object data)
         {
-            return data is ViewModelBase || data is IView;
+            return data is ViewModelBase || data is IDockable;
         }
     }
 }
