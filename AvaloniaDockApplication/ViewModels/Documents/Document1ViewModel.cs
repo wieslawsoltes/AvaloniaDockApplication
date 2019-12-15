@@ -2,7 +2,7 @@
 
 namespace AvaloniaDockApplication.ViewModels.Documents
 {
-    public class Document1ViewModel : DocumentTab
+    public class Document1ViewModel : Document
     {
     }
 }

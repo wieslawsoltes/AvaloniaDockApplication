@@ -5,17 +5,17 @@ namespace AvaloniaDockApplication.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private IDockFactory _factory;
-        private IView _layout;
+        private IFactory _factory;
+        private IDock _layout;
         private string _currentView;
 
-        public IDockFactory Factory
+        public IFactory Factory
         {
             get => _factory;
             set => this.RaiseAndSetIfChanged(ref _factory, value);
         }
 
-        public IView Layout
+        public IDock Layout
         {
             get => _layout;
             set => this.RaiseAndSetIfChanged(ref _layout, value);

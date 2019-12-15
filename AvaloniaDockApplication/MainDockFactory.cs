@@ -12,7 +12,7 @@ using Dock.Model.Controls;
 
 namespace AvaloniaDockApplication
 {
-    public class MainDockFactory : DockFactory
+    public class MainDockFactory : Factory
     {
         private object _context;
 
@@ -83,31 +83,31 @@ namespace AvaloniaDockApplication
                 Title = "RightBottom2"
             };
 
-            var mainLayout = new LayoutDock
+            var mainLayout = new ProportionalDock
             {
                 Id = "MainLayout",
                 Title = "MainLayout",
                 Proportion = double.NaN,
                 Orientation = Orientation.Horizontal,
-                CurrentView = null,
-                Views = CreateList<IView>
+                ActiveDockable = null,
+                VisibleDockables = CreateList<IDockable>
                 (
-                    new LayoutDock
+                    new ProportionalDock
                     {
                         Id = "LeftPane",
                         Title = "LeftPane",
                         Proportion = double.NaN,
                         Orientation = Orientation.Vertical,
-                        CurrentView = null,
-                        Views = CreateList<IView>
+                        ActiveDockable = null,
+                        VisibleDockables = CreateList<IDockable>
                         (
                             new ToolDock
                             {
                                 Id = "LeftPaneTop",
                                 Title = "LeftPaneTop",
                                 Proportion = double.NaN,
-                                CurrentView = leftTopTool1,
-                                Views = CreateList<IView>
+                                ActiveDockable = leftTopTool1,
+                                VisibleDockables = CreateList<IDockable>
                                 (
                                     leftTopTool1,
                                     leftTopTool2
@@ -123,8 +123,8 @@ namespace AvaloniaDockApplication
                                 Id = "LeftPaneBottom",
                                 Title = "LeftPaneBottom",
                                 Proportion = double.NaN,
-                                CurrentView = leftBottomTool1,
-                                Views = CreateList<IView>
+                                ActiveDockable = leftBottomTool1,
+                                VisibleDockables = CreateList<IDockable>
                                 (
                                     leftBottomTool1,
                                     leftBottomTool2
@@ -142,8 +142,8 @@ namespace AvaloniaDockApplication
                         Id = "DocumentsPane",
                         Title = "DocumentsPane",
                         Proportion = double.NaN,
-                        CurrentView = document1,
-                        Views = CreateList<IView>
+                        ActiveDockable = document1,
+                        VisibleDockables = CreateList<IDockable>
                         (
                             document1,
                             document2
@@ -154,22 +154,22 @@ namespace AvaloniaDockApplication
                         Id = "RightSplitter",
                         Title = "RightSplitter"
                     },
-                    new LayoutDock
+                    new ProportionalDock
                     {
                         Id = "RightPane",
                         Title = "RightPane",
                         Proportion = double.NaN,
                         Orientation = Orientation.Vertical,
-                        CurrentView = null,
-                        Views = CreateList<IView>
+                        ActiveDockable = null,
+                        VisibleDockables = CreateList<IDockable>
                         (
                             new ToolDock
                             {
                                 Id = "RightPaneTop",
                                 Title = "RightPaneTop",
                                 Proportion = double.NaN,
-                                CurrentView = rightTopTool1,
-                                Views = CreateList<IView>
+                                ActiveDockable = rightTopTool1,
+                                VisibleDockables = CreateList<IDockable>
                                 (
                                     rightTopTool1,
                                     rightTopTool2
@@ -185,8 +185,8 @@ namespace AvaloniaDockApplication
                                 Id = "RightPaneBottom",
                                 Title = "RightPaneBottom",
                                 Proportion = double.NaN,
-                                CurrentView = rightBottomTool1,
-                                Views = CreateList<IView>
+                                ActiveDockable = rightBottomTool1,
+                                VisibleDockables = CreateList<IDockable>
                                 (
                                     rightBottomTool1,
                                     rightBottomTool2
@@ -201,17 +201,17 @@ namespace AvaloniaDockApplication
             {
                 Id = "Main",
                 Title = "Main",
-                CurrentView = mainLayout,
-                Views = CreateList<IView>(mainLayout)
+                ActiveDockable = mainLayout,
+                VisibleDockables = CreateList<IDockable>(mainLayout)
             };
 
             var root = CreateRootDock();
 
             root.Id = "Root";
             root.Title = "Root";
-            root.CurrentView = mainView;
-            root.DefaultView = mainView;
-            root.Views = CreateList<IView>(mainView);
+            root.ActiveDockable = mainView;
+            root.DefaultDockable = mainView;
+            root.VisibleDockables = CreateList<IDockable>(mainView);
             root.Top = CreatePinDock();
             root.Top.Alignment = Alignment.Top;
             root.Bottom = CreatePinDock();
@@ -224,19 +224,19 @@ namespace AvaloniaDockApplication
             return root;
         }
 
-        public override void InitLayout(IView layout)
+        public override void InitLayout(IDockable layout)
         {
             this.ContextLocator = new Dictionary<string, Func<object>>
             {
                 [nameof(IRootDock)] = () => _context,
                 [nameof(IPinDock)] = () => _context,
-                [nameof(ILayoutDock)] = () => _context,
+                [nameof(IProportionalDock)] = () => _context,
                 [nameof(IDocumentDock)] = () => _context,
                 [nameof(IToolDock)] = () => _context,
                 [nameof(ISplitterDock)] = () => _context,
                 [nameof(IDockWindow)] = () => _context,
-                [nameof(IDocumentTab)] = () => _context,
-                [nameof(IToolTab)] = () => _context,
+                [nameof(IDocument)] = () => _context,
+                [nameof(ITool)] = () => _context,
                 ["Document1"] = () => new Document1(),
                 ["Document2"] = () => new Document2(),
                 ["LeftTop1"] = () => new LeftTopTool1(),
@@ -263,22 +263,20 @@ namespace AvaloniaDockApplication
                 ["Main"] = () => _context,
             };
 
-            this.HostLocator = new Dictionary<string, Func<IDockHost>>
+            this.HostWindowLocator = new Dictionary<string, Func<IHostWindow>>
             {
                 [nameof(IDockWindow)] = () =>
                 {
                     var hostWindow = new HostWindow()
                     {
-                        [!HostWindow.TitleProperty] = new Binding("CurrentView.Title")
+                        [!HostWindow.TitleProperty] = new Binding("ActiveDockable.Title")
                     };
-
-                    hostWindow.Content = new DockControl()
-                    {
-                        [!DockControl.LayoutProperty] = hostWindow[!HostWindow.DataContextProperty]
-                    };
-
                     return hostWindow;
                 }
+            };
+
+            this.DockableLocator = new Dictionary<string, Func<IDockable>>
+            {
             };
 
             base.InitLayout(layout);

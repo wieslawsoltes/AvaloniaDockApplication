@@ -2,7 +2,7 @@
 
 namespace AvaloniaDockApplication.ViewModels.Tools
 {
-    public class RightTopTool1ViewModel : ToolTab
+    public class RightTopTool1ViewModel : Tool
     {
     }
 }
