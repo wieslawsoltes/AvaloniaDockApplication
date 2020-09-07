@@ -13,13 +13,13 @@
     <AvaloniaResource Include="Assets\*" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.0-preview4" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.0-preview4" />
-    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0-preview4" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0-preview4" />
-    <PackageReference Include="Dock.Avalonia" Version="0.10.0-preview4" />
-    <PackageReference Include="Dock.Avalonia.Themes.Default" Version="0.10.0-preview4" />
-    <PackageReference Include="Dock.Model.ReactiveUI" Version="0.10.0-preview4" />
+    <PackageReference Include="Avalonia" Version="0.10.0-preview5" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.0-preview5" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0-preview5" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0-preview5" />
+    <PackageReference Include="Dock.Avalonia" Version="0.10.0-preview5" />
+    <PackageReference Include="Dock.Avalonia.Themes.Default" Version="0.10.0-preview5" />
+    <PackageReference Include="Dock.Model.ReactiveUI" Version="0.10.0-preview5" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>
