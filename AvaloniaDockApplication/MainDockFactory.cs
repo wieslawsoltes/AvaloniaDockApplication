@@ -212,14 +212,6 @@ namespace AvaloniaDockApplication
             root.ActiveDockable = mainView;
             root.DefaultDockable = mainView;
             root.VisibleDockables = CreateList<IDockable>(mainView);
-            root.Top = CreatePinDock();
-            root.Top.Alignment = Alignment.Top;
-            root.Bottom = CreatePinDock();
-            root.Bottom.Alignment = Alignment.Bottom;
-            root.Left = CreatePinDock();
-            root.Left.Alignment = Alignment.Left;
-            root.Right = CreatePinDock();
-            root.Right.Alignment = Alignment.Right;
 
             return root;
         }
