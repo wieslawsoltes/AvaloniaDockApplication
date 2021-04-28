@@ -1,4 +1,4 @@
-﻿using Dock.Model;
+﻿using Dock.Model.Core;
 using ReactiveUI;
 
 namespace AvaloniaDockApplication.ViewModels

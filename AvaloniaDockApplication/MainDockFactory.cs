@@ -7,8 +7,10 @@ using AvaloniaDockApplication.ViewModels;
 using AvaloniaDockApplication.ViewModels.Documents;
 using AvaloniaDockApplication.ViewModels.Tools;
 using Dock.Avalonia.Controls;
-using Dock.Model;
 using Dock.Model.Controls;
+using Dock.Model.Core;
+using Dock.Model.ReactiveUI;
+using Dock.Model.ReactiveUI.Controls;
 
 namespace AvaloniaDockApplication
 {
@@ -21,7 +23,7 @@ namespace AvaloniaDockApplication
             _context = context;
         }
 
-        public override IDock CreateLayout()
+        public override IRootDock CreateLayout()
         {
             var document1 = new Document1ViewModel
             {
@@ -111,9 +113,11 @@ namespace AvaloniaDockApplication
                                 (
                                     leftTopTool1,
                                     leftTopTool2
-                                )
+                                ),
+                                Alignment = Alignment.Left,
+                                GripMode = GripMode.Visible
                             },
-                            new SplitterDock()
+                            new SplitterDockable()
                             {
                                 Id = "LeftPaneTopSplitter",
                                 Title = "LeftPaneTopSplitter"
@@ -128,11 +132,13 @@ namespace AvaloniaDockApplication
                                 (
                                     leftBottomTool1,
                                     leftBottomTool2
-                                )
+                                ),
+                                Alignment = Alignment.Left,
+                                GripMode = GripMode.Visible
                             }
                         )
                     },
-                    new SplitterDock()
+                    new SplitterDockable()
                     {
                         Id = "LeftSplitter",
                         Title = "LeftSplitter"
@@ -149,7 +155,7 @@ namespace AvaloniaDockApplication
                             document2
                         )
                     },
-                    new SplitterDock()
+                    new SplitterDockable()
                     {
                         Id = "RightSplitter",
                         Title = "RightSplitter"
@@ -173,9 +179,11 @@ namespace AvaloniaDockApplication
                                 (
                                     rightTopTool1,
                                     rightTopTool2
-                                )
+                                ),
+                                Alignment = Alignment.Right,
+                                GripMode = GripMode.Visible
                             },
-                            new SplitterDock()
+                            new SplitterDockable()
                             {
                                 Id = "RightPaneTopSplitter",
                                 Title = "RightPaneTopSplitter"
@@ -190,7 +198,9 @@ namespace AvaloniaDockApplication
                                 (
                                     rightBottomTool1,
                                     rightBottomTool2
-                                )
+                                ),
+                                Alignment = Alignment.Right,
+                                GripMode = GripMode.Visible
                             }
                         )
                     }
@@ -224,7 +234,7 @@ namespace AvaloniaDockApplication
                 [nameof(IProportionalDock)] = () => _context,
                 [nameof(IDocumentDock)] = () => _context,
                 [nameof(IToolDock)] = () => _context,
-                [nameof(ISplitterDock)] = () => _context,
+                [nameof(ISplitterDockable)] = () => _context,
                 [nameof(IDockWindow)] = () => _context,
                 [nameof(IDocument)] = () => _context,
                 [nameof(ITool)] = () => _context,

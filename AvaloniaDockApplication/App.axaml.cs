@@ -4,7 +4,7 @@ using Avalonia.Markup.Xaml;
 using AvaloniaDockApplication.Models;
 using AvaloniaDockApplication.ViewModels;
 using AvaloniaDockApplication.Views;
-using Dock.Model;
+using Dock.Model.Core;
 
 namespace AvaloniaDockApplication
 {
@@ -35,21 +35,27 @@ namespace AvaloniaDockApplication
                     DataContext = mainWindowViewModel
                 };
 
-                mainWindow.Closing += (sender, e) =>
+                mainWindow.Closing += (_, _) =>
                 {
                     if (layout is IDock dock)
                     {
-                        dock.Close();
+                        if (dock.Close.CanExecute(null))
+                        {
+                            dock.Close.Execute(null);
+                        }
                     }
                 };
 
                 desktopLifetime.MainWindow = mainWindow;
 
-                desktopLifetime.Exit += (sennder, e) =>
+                desktopLifetime.Exit += (_, _) =>
                 {
                     if (layout is IDock dock)
                     {
-                        dock.Close();
+                        if (dock.Close.CanExecute(null))
+                        {
+                            dock.Close.Execute(null);
+                        }
                     }
                 };
             }
