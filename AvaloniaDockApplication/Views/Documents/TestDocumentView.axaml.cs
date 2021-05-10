@@ -3,9 +3,9 @@ using Avalonia.Markup.Xaml;
 
 namespace AvaloniaDockApplication.Views.Documents
 {
-    public class Document2View : UserControl
+    public class TestDocumentView : UserControl
     {
-        public Document2View()
+        public TestDocumentView()
         {
             this.InitializeComponent();
         }

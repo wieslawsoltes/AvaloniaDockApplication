@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Avalonia.Data;
 using AvaloniaDockApplication.Models.Documents;
 using AvaloniaDockApplication.Models.Tools;
@@ -11,27 +12,29 @@ using Dock.Model.Controls;
 using Dock.Model.Core;
 using Dock.Model.ReactiveUI;
 using Dock.Model.ReactiveUI.Controls;
+using ReactiveUI;
 
 namespace AvaloniaDockApplication
 {
     public class MainDockFactory : Factory
     {
-        private object _context;
+        private IDocumentDock _documentDock;
+        private readonly object _context;
 
         public MainDockFactory(object context)
         {
             _context = context;
         }
-
+ 
         public override IRootDock CreateLayout()
         {
-            var document1 = new Document1ViewModel
+            var document1 = new TestDocumentViewModel
             {
                 Id = "Document1",
                 Title = "Document1"
             };
 
-            var document2 = new Document2ViewModel
+            var document2 = new TestDocumentViewModel
             {
                 Id = "Document2",
                 Title = "Document2"
@@ -84,6 +87,29 @@ namespace AvaloniaDockApplication
                 Id = "RightBottom2",
                 Title = "RightBottom2"
             };
+
+            var documentDock = new DocumentDock
+            {
+                Id = "DocumentsPane",
+                Title = "DocumentsPane",
+                Proportion = double.NaN,
+                ActiveDockable = document1,
+                VisibleDockables = CreateList<IDockable>
+                (
+                    document1,
+                    document2
+                )
+            };
+
+            documentDock.CanCreateDocument = true;
+            documentDock.CreateDocument = ReactiveCommand.Create(() =>
+            {
+                var index = documentDock.VisibleDockables?.Count + 1;
+                var document = new TestDocumentViewModel {Id = $"Document{index}", Title = $"Document{index}"};
+                this.AddDockable(documentDock, document);
+                this.SetActiveDockable(document);
+                this.SetFocusedDockable(documentDock, document);
+            });
 
             var mainLayout = new ProportionalDock
             {
@@ -143,18 +169,7 @@ namespace AvaloniaDockApplication
                         Id = "LeftSplitter",
                         Title = "LeftSplitter"
                     },
-                    new DocumentDock
-                    {
-                        Id = "DocumentsPane",
-                        Title = "DocumentsPane",
-                        Proportion = double.NaN,
-                        ActiveDockable = document1,
-                        VisibleDockables = CreateList<IDockable>
-                        (
-                            document1,
-                            document2
-                        )
-                    },
+                    documentDock,
                     new SplitterDockable()
                     {
                         Id = "RightSplitter",
@@ -223,6 +238,8 @@ namespace AvaloniaDockApplication
             root.DefaultDockable = mainView;
             root.VisibleDockables = CreateList<IDockable>(mainView);
 
+            _documentDock = documentDock;
+
             return root;
         }
 
@@ -238,8 +255,8 @@ namespace AvaloniaDockApplication
                 [nameof(IDockWindow)] = () => _context,
                 [nameof(IDocument)] = () => _context,
                 [nameof(ITool)] = () => _context,
-                ["Document1"] = () => new Document1(),
-                ["Document2"] = () => new Document2(),
+                ["Document1"] = () => new TestDocument(),
+                ["Document2"] = () => new TestDocument(),
                 ["LeftTop1"] = () => new LeftTopTool1(),
                 ["LeftTop2"] = () => new LeftTopTool2(),
                 ["LeftBottom1"] = () => new LeftBottomTool1(),
@@ -281,6 +298,9 @@ namespace AvaloniaDockApplication
             };
 
             base.InitLayout(layout);
+
+            this.SetActiveDockable(_documentDock);
+            this.SetFocusedDockable(_documentDock, _documentDock.VisibleDockables?.FirstOrDefault());
         }
     }
 }
