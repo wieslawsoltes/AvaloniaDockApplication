@@ -143,7 +143,7 @@ namespace AvaloniaDockApplication
                                 Alignment = Alignment.Left,
                                 GripMode = GripMode.Visible
                             },
-                            new SplitterDockable()
+                            new ProportionalDockSplitter()
                             {
                                 Id = "LeftPaneTopSplitter",
                                 Title = "LeftPaneTopSplitter"
@@ -164,13 +164,13 @@ namespace AvaloniaDockApplication
                             }
                         )
                     },
-                    new SplitterDockable()
+                    new ProportionalDockSplitter()
                     {
                         Id = "LeftSplitter",
                         Title = "LeftSplitter"
                     },
                     documentDock,
-                    new SplitterDockable()
+                    new ProportionalDockSplitter()
                     {
                         Id = "RightSplitter",
                         Title = "RightSplitter"
@@ -198,7 +198,7 @@ namespace AvaloniaDockApplication
                                 Alignment = Alignment.Right,
                                 GripMode = GripMode.Visible
                             },
-                            new SplitterDockable()
+                            new ProportionalDockSplitter()
                             {
                                 Id = "RightPaneTopSplitter",
                                 Title = "RightPaneTopSplitter"
@@ -251,7 +251,7 @@ namespace AvaloniaDockApplication
                 [nameof(IProportionalDock)] = () => _context,
                 [nameof(IDocumentDock)] = () => _context,
                 [nameof(IToolDock)] = () => _context,
-                [nameof(ISplitterDockable)] = () => _context,
+                [nameof(IProportionalDockSplitter)] = () => _context,
                 [nameof(IDockWindow)] = () => _context,
                 [nameof(IDocument)] = () => _context,
                 [nameof(ITool)] = () => _context,
