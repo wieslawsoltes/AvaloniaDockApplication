@@ -1,8 +1,7 @@
 ﻿using Dock.Model.Mvvm.Controls;
 
-namespace AvaloniaDockApplication.ViewModels.Tools
+namespace AvaloniaDockApplication.ViewModels.Tools;
+
+public class LeftBottomTool2ViewModel : Tool
 {
-    public class LeftBottomTool2ViewModel : Tool
-    {
-    }
 }

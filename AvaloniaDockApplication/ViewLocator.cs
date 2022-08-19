@@ -4,28 +4,27 @@ using Avalonia.Controls.Templates;
 using AvaloniaDockApplication.ViewModels;
 using Dock.Model.Core;
 
-namespace AvaloniaDockApplication
+namespace AvaloniaDockApplication;
+
+public class ViewLocator : IDataTemplate
 {
-    public class ViewLocator : IDataTemplate
+    public IControl Build(object? data)
     {
-        public IControl Build(object? data)
-        {
-            var name = data?.GetType().FullName?.Replace("ViewModel", "View");
-            var type = name is null ? null : Type.GetType(name);
+        var name = data?.GetType().FullName?.Replace("ViewModel", "View");
+        var type = name is null ? null : Type.GetType(name);
 
-            if (type != null)
-            {
-                return (Control)Activator.CreateInstance(type)!;
-            }
-            else
-            {
-                return new TextBlock { Text = "Not Found: " + name };
-            }
-        }
-
-        public bool Match(object? data)
+        if (type != null)
         {
-            return data is ViewModelBase || data is IDockable;
+            return (Control)Activator.CreateInstance(type)!;
         }
+        else
+        {
+            return new TextBlock { Text = "Not Found: " + name };
+        }
+    }
+
+    public bool Match(object? data)
+    {
+        return data is ViewModelBase || data is IDockable;
     }
 }

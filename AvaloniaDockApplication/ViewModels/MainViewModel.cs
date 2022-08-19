@@ -1,8 +1,7 @@
 ﻿using Dock.Model.Mvvm.Controls;
 
-namespace AvaloniaDockApplication.ViewModels
+namespace AvaloniaDockApplication.ViewModels;
+
+public class MainViewModel : RootDock
 {
-    public class MainViewModel : RootDock
-    {
-    }
 }

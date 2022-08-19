@@ -1,9 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace AvaloniaDockApplication.ViewModels
+namespace AvaloniaDockApplication.ViewModels;
+
+[ObservableObject]
+public partial class ViewModelBase
 {
-    [ObservableObject]
-    public partial class ViewModelBase
-    {
-    }
 }

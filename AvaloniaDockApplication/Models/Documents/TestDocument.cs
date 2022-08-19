@@ -1,7 +1,6 @@
 ﻿
-namespace AvaloniaDockApplication.Models.Documents
+namespace AvaloniaDockApplication.Models.Documents;
+
+public class TestDocument
 {
-    public class TestDocument
-    {
-    }
 }

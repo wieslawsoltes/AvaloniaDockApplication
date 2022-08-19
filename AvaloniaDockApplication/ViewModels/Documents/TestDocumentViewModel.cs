@@ -1,8 +1,7 @@
 ﻿using Dock.Model.Mvvm.Controls;
 
-namespace AvaloniaDockApplication.ViewModels.Documents
+namespace AvaloniaDockApplication.ViewModels.Documents;
+
+public class TestDocumentViewModel : Document
 {
-    public class TestDocumentViewModel : Document
-    {
-    }
 }

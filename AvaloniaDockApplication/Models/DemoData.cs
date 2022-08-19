@@ -1,7 +1,6 @@
 ﻿
-namespace AvaloniaDockApplication.Models
+namespace AvaloniaDockApplication.Models;
+
+public class DemoData
 {
-    public class DemoData
-    {
-    }
 }

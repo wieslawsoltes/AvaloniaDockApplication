@@ -1,14 +1,13 @@
 ﻿using Avalonia;
 
-namespace AvaloniaDockApplication
-{
-    class Program
-    {
-        public static void Main(string[] args) => BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+namespace AvaloniaDockApplication;
 
-        public static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                .LogToTrace();
-    }
+class Program
+{
+    public static void Main(string[] args) => BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+
+    public static AppBuilder BuildAvaloniaApp()
+        => AppBuilder.Configure<App>()
+            .UsePlatformDetect()
+            .LogToTrace();
 }

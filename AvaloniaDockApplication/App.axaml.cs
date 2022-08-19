@@ -6,69 +6,68 @@ using AvaloniaDockApplication.ViewModels;
 using AvaloniaDockApplication.Views;
 using Dock.Model.Core;
 
-namespace AvaloniaDockApplication
+namespace AvaloniaDockApplication;
+
+public class App : Application
 {
-    public class App : Application
+    public override void Initialize()
     {
-        public override void Initialize()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+        AvaloniaXamlLoader.Load(this);
+    }
 
-        public override void OnFrameworkInitializationCompleted()
-        {
-            var factory = new MainDockFactory(new DemoData());
-            var layout = factory.CreateLayout();
-            factory.InitLayout(layout);
+    public override void OnFrameworkInitializationCompleted()
+    {
+        var factory = new MainDockFactory(new DemoData());
+        var layout = factory.CreateLayout();
+        factory.InitLayout(layout);
 
-            var mainWindowViewModel = new MainWindowViewModel()
+        var mainWindowViewModel = new MainWindowViewModel()
+        {
+            Factory = factory,
+            Layout = layout
+        };
+
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLifetime)
+        {
+                
+            var mainWindow = new MainWindow
             {
-                Factory = factory,
-                Layout = layout
+                DataContext = mainWindowViewModel
             };
 
-            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLifetime)
+            mainWindow.Closing += (_, _) =>
             {
-                
-                var mainWindow = new MainWindow
+                if (layout is IDock dock)
                 {
-                    DataContext = mainWindowViewModel
-                };
-
-                mainWindow.Closing += (_, _) =>
-                {
-                    if (layout is IDock dock)
+                    if (dock.Close.CanExecute(null))
                     {
-                        if (dock.Close.CanExecute(null))
-                        {
-                            dock.Close.Execute(null);
-                        }
+                        dock.Close.Execute(null);
                     }
-                };
+                }
+            };
 
-                desktopLifetime.MainWindow = mainWindow;
+            desktopLifetime.MainWindow = mainWindow;
 
-                desktopLifetime.Exit += (_, _) =>
-                {
-                    if (layout is IDock dock)
-                    {
-                        if (dock.Close.CanExecute(null))
-                        {
-                            dock.Close.Execute(null);
-                        }
-                    }
-                };
-            }
-            else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewLifetime)
+            desktopLifetime.Exit += (_, _) =>
             {
-                var mainView = new MainView()
+                if (layout is IDock dock)
                 {
-                    DataContext = mainWindowViewModel
-                };
-
-                singleViewLifetime.MainView = mainView;
-            }
-            base.OnFrameworkInitializationCompleted();
+                    if (dock.Close.CanExecute(null))
+                    {
+                        dock.Close.Execute(null);
+                    }
+                }
+            };
         }
+        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewLifetime)
+        {
+            var mainView = new MainView()
+            {
+                DataContext = mainWindowViewModel
+            };
+
+            singleViewLifetime.MainView = mainView;
+        }
+        base.OnFrameworkInitializationCompleted();
     }
 }

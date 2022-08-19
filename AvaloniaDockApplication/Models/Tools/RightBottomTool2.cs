@@ -1,7 +1,6 @@
 ﻿
-namespace AvaloniaDockApplication.Models.Tools
+namespace AvaloniaDockApplication.Models.Tools;
+
+public class RightBottomTool2
 {
-    public class RightBottomTool2
-    {
-    }
 }

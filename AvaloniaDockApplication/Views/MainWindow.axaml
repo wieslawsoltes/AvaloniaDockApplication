@@ -11,10 +11,10 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="AvaloniaDockApplication">
 
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
+  <Design.DataContext>
+    <vm:MainWindowViewModel />
+  </Design.DataContext>
 
-    <idc:DockControl Layout="{Binding Layout}"/>
+  <idc:DockControl Layout="{Binding Layout}" />
 
 </Window>

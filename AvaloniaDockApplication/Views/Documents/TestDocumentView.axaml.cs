@@ -1,18 +1,17 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace AvaloniaDockApplication.Views.Documents
-{
-    public class TestDocumentView : UserControl
-    {
-        public TestDocumentView()
-        {
-            this.InitializeComponent();
-        }
+namespace AvaloniaDockApplication.Views.Documents;
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+public class TestDocumentView : UserControl
+{
+    public TestDocumentView()
+    {
+        this.InitializeComponent();
+    }
+
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
     }
 }
