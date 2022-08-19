@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Avalonia.Controls;
 using Avalonia.Data;
 using AvaloniaDockApplication.Models.Documents;
 using AvaloniaDockApplication.Models.Tools;
 using AvaloniaDockApplication.ViewModels;
 using AvaloniaDockApplication.ViewModels.Documents;
 using AvaloniaDockApplication.ViewModels.Tools;
+using CommunityToolkit.Mvvm.Input;
 using Dock.Avalonia.Controls;
 using Dock.Model.Controls;
 using Dock.Model.Core;
-using Dock.Model.ReactiveUI;
-using Dock.Model.ReactiveUI.Controls;
-using ReactiveUI;
+using Dock.Model.Mvvm;
+using Dock.Model.Mvvm.Controls;
 
 namespace AvaloniaDockApplication
 {
     public class MainDockFactory : Factory
     {
-        private IDocumentDock _documentDock;
+        private IDocumentDock? _documentDock;
         private readonly object _context;
 
         public MainDockFactory(object context)
@@ -102,7 +103,7 @@ namespace AvaloniaDockApplication
             };
 
             documentDock.CanCreateDocument = true;
-            documentDock.CreateDocument = ReactiveCommand.Create(() =>
+            documentDock.CreateDocument = new RelayCommand(() =>
             {
                 var index = documentDock.VisibleDockables?.Count + 1;
                 var document = new TestDocumentViewModel {Id = $"Document{index}", Title = $"Document{index}"};
@@ -287,20 +288,23 @@ namespace AvaloniaDockApplication
                 {
                     var hostWindow = new HostWindow()
                     {
-                        [!HostWindow.TitleProperty] = new Binding("ActiveDockable.Title")
+                        [!Window.TitleProperty] = new Binding("ActiveDockable.Title")
                     };
                     return hostWindow;
                 }
             };
 
-            this.DockableLocator = new Dictionary<string, Func<IDockable>>
+            this.DockableLocator = new Dictionary<string, Func<IDockable?>>
             {
             };
 
             base.InitLayout(layout);
 
-            this.SetActiveDockable(_documentDock);
-            this.SetFocusedDockable(_documentDock, _documentDock.VisibleDockables?.FirstOrDefault());
+            if (_documentDock is { })
+            {
+                this.SetActiveDockable(_documentDock);
+                this.SetFocusedDockable(_documentDock, _documentDock.VisibleDockables?.FirstOrDefault());
+            }
         }
     }
 }
